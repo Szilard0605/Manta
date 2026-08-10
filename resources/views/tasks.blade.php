@@ -6,8 +6,27 @@
 
 {{-- 3. Inject this specific HTML code into the @yield('content') placeholder --}}
 @section('content')
-    <div class="flex justify-center">
-        <h1>Welcome to My Website</h1>
-        <p>This unique page content will display right beneath your always-visible navigation bar!</p>
+
+@auth
+    <div class="flex justify-center flex-col items-center">
+        <h1>Welcome {{ Auth::user()->name }}!</h1>
+        <form method="POST" action="/logout" class="inline">
+            @csrf
+            <button type="submit" class="btn btn-ghost btn-sm">Logout</button>
+        </form>
+        <p>Listing tasks...</p>
     </div>
+@endauth
+
+@guest
+    <div class="flex justify-center flex-col items-center">
+        <h1>You're not logged in!</h1>
+        <form method="GET" action="/login" class="inline">
+            @csrf
+            <button type="submit" class="btn btn-ghost btn-sm">Login</button>
+        </form>
+        <p>To access the content of this page, please log in first.</p>
+    </div>
+@endguest
+
 @endsection
