@@ -1,20 +1,46 @@
-{{-- 1. Point to your layout file folder path (layouts/app.blade.php) --}}
+
 @extends('layouts.app')
-
-{{-- 2. Pass a dynamic title string to the layout --}}
 @section('title', 'Home Page')
-
-{{-- 3. Inject this specific HTML code into the @yield('content') placeholder --}}
 @section('content')
 
 @auth
     <div class="flex justify-center flex-col items-center">
-        <h1>Welcome {{ Auth::user()->name }}!</h1>
         <form method="POST" action="/logout" class="inline">
             @csrf
             <button type="submit" class="btn btn-ghost btn-sm">Logout</button>
         </form>
-        <p>Listing tasks...</p>
+        
+        <div class="border p-4 m-2">    
+        <table class="border m-0">
+        <thead>
+            <th class="p-1 border">Létrehozó</th>
+            <th class="p-1 border">Feladat címe</th>
+            <th class="p-1 border">Létrehozva</th>
+            <th class="p-1 border">Utolsó módosítás</th>
+        </thead>
+        @foreach ($tasks as $task)
+        <tr class="border m-2">
+            <td class="p-1 border">
+                {{ $task->user->name }}
+            </td>
+            <td class="p-1 border">   
+                {{ $task->title }}
+            </td>
+            <td class="p-1 border">
+                {{ $task->created_at }}
+            </td>
+            <td class="p-1 border">
+                {{ $task->updated_at }}
+            </td>
+            <td class="p-1 boder">
+                <a href="{{ route('tasks.show', $task) }}">
+                    Megtekint
+                </a>
+            </td>
+        </tr>
+        @endforeach
+        </table>
+        </div>
     </div>
 @endauth
 

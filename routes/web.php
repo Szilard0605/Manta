@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 
-Route::get('/', [TasksController::class, 'ListUsersTasks'] );
+Route::get('/', [TasksController::class, 'ListTasks'] );
 
 Route::get('/newtask', function () 
 {
@@ -19,6 +19,10 @@ Route::get('/newtask', function ()
         return redirect('/login');
     }
 });
+
+Route::post('/newtask', [TasksController::class, "CreateTask"]);
+
+Route::get('/task/{task}', [TasksController::class, "ShowTask"])->name('tasks.show');
 
 Route::view('/login', 'login')
     ->middleware('guest')

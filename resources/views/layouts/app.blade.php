@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'My Laravel App')</title>
-    <!-- Include your CSS (Tailwind or Bootstrap) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
@@ -20,7 +19,6 @@
         </ul>
     </nav>
 
-    <!-- PAGE CONTENT -->
     <main class="pt-28">
         @yield('content')
     </main>
