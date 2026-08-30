@@ -8,21 +8,14 @@ use App\Http\Controllers\LogoutController;
 
 Route::get('/', [TasksController::class, 'ListTasks'] );
 
-Route::get('/newtask', function () 
+Route::get('/create_task', function () 
 {
-    if(Auth::check())
-    {
-        return view('newtask');
-    }
-    else
-    {
-        return redirect('/login');
-    }
-});
+        return view('create_task');
+})->middleware('auth');
 
-Route::post('/newtask', [TasksController::class, "CreateTask"]);
+Route::post('/create_task', [TasksController::class, "CreateTask"])->middleware('auth');;
 
-Route::get('/task/{task}', [TasksController::class, "ShowTask"])->name('tasks.show');
+Route::get('/task/{task}', [TasksController::class, "ShowTask"])->name('tasks.show')->middleware('auth');;
 
 Route::view('/login', 'login')
     ->middleware('guest')

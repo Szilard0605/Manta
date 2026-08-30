@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
-
+use App\Models\User;
 class TasksController extends Controller
 {
     public function CreateTask(Request $request)
@@ -17,7 +17,7 @@ class TasksController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return redirect('/task/' . $task->id);
+        return redirect()->route('tasks.show', $task);
     }
 
     public function ShowTask(Task $task)
