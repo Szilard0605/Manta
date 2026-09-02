@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Comment;
+
 class TasksController extends Controller
 {
     public function CreateTask(Request $request)
@@ -68,7 +69,6 @@ class TasksController extends Controller
 
     public function DeleteComment(Task $task, Comment $comment)
     {
-        // Check if the authenticated user is the owner of the comment
         if (Auth::id() === $comment->user_id) {
             $comment->delete();
         }
